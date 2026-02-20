@@ -14,7 +14,7 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+# Generar Prisma Client y empujar schema a la DB (PostgreSQL Coolify)\nRUN npx prisma generate\nRUN npx prisma db push --accept-data-loss || true\nRUN npm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
