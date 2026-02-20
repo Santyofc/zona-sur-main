@@ -24,10 +24,11 @@ export const Header = () => {
   });
 
   const navLinks = [
-    { name: 'Inicio', href: '#inicio', icon: Home },
-    { name: 'Servicios', href: '#servicios', icon: Briefcase },
-    { name: 'Software', href: '#software', icon: Code },
-    { name: 'Nosotros', href: '#fundador', icon: User },
+    { name: 'Inicio', href: '/#inicio', icon: Home },
+    { name: 'Servicios', href: '/#servicios', icon: Briefcase },
+    { name: 'Software', href: '/#software', icon: Code },
+    { name: 'Reseñas', href: '/reviews', icon: Star },
+    { name: 'Nosotros', href: '/#fundador', icon: User },
   ];
 
   return (
