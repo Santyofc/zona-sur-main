@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  taxId     String   @unique // RFC, NIT, Cédula Jurídica
+  name      String
+  email     String?
+  address   String?
+  invoices  Invoice[]
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  price       Float
+  taxType     String   // IVA, Exempt, etc.
+  taxRate     Float    @default(13) // Costa Rica default
+  invoiceItems InvoiceItem[]
+}
+
+model Invoice {
+  id          String   @id @default(cuid())
+  number      String   @unique // Consecutive number
+  date        DateTime @default(now())
+  status      String   // DRAFT, SIGNED, SENT, PAID, CANCELLED
+  totalAmount Float
+  taxAmount   Float
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id])
+  items       InvoiceItem[]
+  xmlPath     String?  // Path to signed XML for Hacienda
+}
+
+model InvoiceItem {
+  id        String   @id @default(cuid())
+  quantity  Float
+  price     Float
+  subtotal  Float
+  invoiceId String
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+}

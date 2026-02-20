@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  name        String
+  company     String?
+  email       String   @unique
+  phone       String?
+  status      String   @default("PROSPECT") // PROSPECT, CONTACTED, PROPOSAL, NEGOTIATION, CLOSED
+  value       Float    @default(0)
+  source      String?  // Facebook, Instagram, Website
+  notes       Note[]
+  tasks       Task[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  content   String
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  dueDate     DateTime?
+  completed   Boolean  @default(false)
+  leadId      String
+  lead        Lead     @relation(fields: [leadId], references: [id])
+  createdAt   DateTime @default(now())
+}

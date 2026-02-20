@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: citafacil-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-santyofc}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-pstgrs_santy_2026}
+      POSTGRES_DB: ${DB_NAME:-citafacil_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - citafacil_data:/var/lib/postgresql/data
+    networks:
+      - zonasurtech_network
+
+networks:
+  zonasurtech_network:
+    external: true
+
+volumes:
+  citafacil_data:

@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a12;
+  --color-foreground: #f1f1ff;
+
+  --color-brand-50: #f0f0ff;
+  --color-brand-100: #e4e4ff;
+  --color-brand-200: #ccccff;
+  --color-brand-300: #a8a8ff;
+  --color-brand-400: #8080ff;
+  --color-brand-500: #6050f8;
+  --color-brand-600: #4f35ed;
+  --color-brand-700: #4228d9;
+  --color-brand-800: #3721b0;
+  --color-brand-900: #2f1e8c;
+  --color-brand-950: #1e1160;
+
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #06b6d4;
+  --color-accent-600: #0891b2;
+
+  --color-surface-900: #0a0a12;
+  --color-surface-800: #0f0f1f;
+  --color-surface-700: #14142a;
+  --color-surface-600: #1a1a35;
+  --color-surface-500: #22224a;
+  --color-surface-400: #2a2a5a;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --animate-fade-in: fadeIn 0.3s ease-out;
+  --animate-slide-up: slideUp 0.4s ease-out;
+  --animate-pulse-soft: pulseSoft 2s ease-in-out infinite;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes pulseSoft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+/* Reverted to Safe CSS - Removing potential conflicts */

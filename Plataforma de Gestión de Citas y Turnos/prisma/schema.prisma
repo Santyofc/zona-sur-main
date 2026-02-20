@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Business {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  email       String   @unique
+  password    String
+  image       String?
+  description String?
+  category    String
+  address     String?
+  phone       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  services    Service[]
+  employees   Employee[]
+  appointments Appointment[]
+  clients     Client[]
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  duration    Int      // in minutes
+  price       Float
+  image       String?
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  appointments Appointment[]
+}
+
+model Employee {
+  id          String   @id @default(cuid())
+  name        String
+  role        String
+  email       String?
+  image       String?
+  color       String?  // for calendar
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  appointments Appointment[]
+}
+
+model Client {
+  id          String   @id @default(cuid())
+  name        String
+  email       String?
+  phone       String?
+  totalSpent  Float    @default(0)
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  appointments Appointment[]
+}
+
+model Appointment {
+  id          String   @id @default(cuid())
+  date        DateTime
+  status      String   // PENDING, CONFIRMED, COMPLETED, CANCELLED
+  notes       String?
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  serviceId   String
+  service     Service  @relation(fields: [serviceId], references: [id])
+  employeeId  String
+  employee    Employee @relation(fields: [employeeId], references: [id])
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

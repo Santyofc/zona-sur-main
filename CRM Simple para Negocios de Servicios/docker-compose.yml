@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: crm-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-santyofc}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-pstgrs_santy_crm}
+      POSTGRES_DB: ${DB_NAME:-crm_db}
+    ports:
+      - "5434:5432"
+    volumes:
+      - crm_data:/var/lib/postgresql/data
+    networks:
+      - zonasurtech_network
+
+networks:
+  zonasurtech_network:
+    external: true
+
+volumes:
+  crm_data:

@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: facturacion-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-santyofc}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-pstgrs_santy_factu}
+      POSTGRES_DB: ${DB_NAME:-facturacion_db}
+    ports:
+      - "5433:5432" # Changed port to avoid conflict with citafacil if running locally
+    volumes:
+      - facturacion_data:/var/lib/postgresql/data
+    networks:
+      - zonasurtech_network
+
+networks:
+  zonasurtech_network:
+    external: true
+
+volumes:
+  facturacion_data:

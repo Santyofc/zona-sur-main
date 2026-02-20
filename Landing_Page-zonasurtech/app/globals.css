@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark Mode Defaults */
+    --background: 222.2 84% 4.9%; /* Slate 950 */
+    --foreground: 210 40% 98%;    /* Slate 50 */
+
+    --primary: 158 64% 52%;       /* Emerald 500 */
+    --primary-foreground: 145 80% 10%; /* Emerald 950 */
+
+    --secondary: 217.2 32.6% 17.5%; /* Slate 900 */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 199 89% 48%;        /* Blue 500 */
+    --accent-foreground: 210 40% 98%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
+
+.glass-nav {
+  background-color: rgba(2, 6, 23, 0.8); /* slate-950/80 */
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #34d399, #06b6d4); /* emerald-400 to cyan-500 */
+}
