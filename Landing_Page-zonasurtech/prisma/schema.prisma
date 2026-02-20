@@ -43,3 +43,16 @@ enum Category {
   COMPONENTS
   REAL_ESTATE_TECH
 }
+
+// Modelo para Growth y Conversión (Captación de Leads)
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  acceptedLegal Boolean @default(true)
+  ip        String?  // Opcional para registro de auditoría
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([email])
+}
+
