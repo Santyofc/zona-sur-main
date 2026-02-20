@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo para las reseñas de tecnología de Zona Sur Tech
+model TechReview {
+  id                String   @id @default(cuid())
+  title             String
+  slug              String   @unique // Para URLs como zonasurtech.online/reviews/mejor-software-2026
+  category          Category @default(SOFTWARE)
+  
+  // Contenido y Branding Propio
+  mainImage         String   // URL de tu fotografía propia del producto
+  brandLogo         String   // URL del logo de la marca reseñada
+  summary           String   @db.Text
+  content           String   @db.Text // Cuerpo de la reseña en Markdown o HTML
+  
+  // Análisis técnico
+  rating            Float    @default(0.0)
+  pros              String[] // Array de puntos positivos
+  cons              String[] // Array de puntos negativos
+  
+  // Metadata para SEO y AdSense
+  metaTitle         String?
+  metaDescription   String?
+  
+  // Relación con el autor (Santyofc)
+  authorId          String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([slug])
+}
+
+enum Category {
+  SOFTWARE
+  HARDWARE
+  COMPONENTS
+  REAL_ESTATE_TECH
+}
